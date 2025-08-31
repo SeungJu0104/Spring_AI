@@ -26,7 +26,7 @@ public class AiServiceZeroShotPrompt {
   public AiServiceZeroShotPrompt(ChatClient.Builder chatClientBuilder) {
     chatClient = chatClientBuilder
         .defaultOptions(ChatOptions.builder()
-            .temperature(0.0)
+            .temperature(0.0) // [긍정적, 중립적, 부정적] 중 1개만 나와야하므로 temperature 를 0.0 으로 설정해 고정된 답변 출력.
             .maxTokens(4)
             .build())
         .build();

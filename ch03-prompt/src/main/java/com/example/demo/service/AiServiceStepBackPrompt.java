@@ -36,9 +36,11 @@ public class AiServiceStepBackPrompt {
             """.formatted(question))
         .call()
         .content();
+    
+    log.info(questions); // LLM이 사용자 잘문을 단계별로 나누어 질문 수행.
   
     String json = questions.substring(questions.indexOf("["), questions.indexOf("]")+1);
-    log.info(json);
+    log.info(json); // 단계별 질문 확인
     
     ObjectMapper objectMapper = new ObjectMapper();
     List<String> listQuestion = objectMapper.readValue(
@@ -50,7 +52,7 @@ public class AiServiceStepBackPrompt {
     for(int i=0; i<listQuestion.size(); i++) {
       String stepQuestion = listQuestion.get(i);
       String stepAnswer = getStepAnswer(stepQuestion, answerArray);
-      answerArray[i] = stepAnswer;
+      answerArray[i] = stepAnswer; // 이전 답변 내용을 누적.
       log.info("단계{} 질문: {}, 답변: {}", i+1, stepQuestion, stepAnswer);
     }
     
@@ -61,7 +63,7 @@ public class AiServiceStepBackPrompt {
     String context = "";
     for (String prevStepAnswer : prevStepAnswers) {
       context += Objects.requireNonNullElse(prevStepAnswer, "");
-    }
+    } // 이전 답변들을 누적해 하나의 문자열로 생성.
     String answer = chatClient.prompt()
         .user("""
             %s
@@ -69,6 +71,6 @@ public class AiServiceStepBackPrompt {
             """.formatted(question, context))
         .call()
         .content();
-    return answer;
+    return answer; // 단계별 질문들의 답변을 바탕으로 사용자 질문에 대한 답변을 리턴
   }
 }

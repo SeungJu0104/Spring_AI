@@ -40,7 +40,8 @@ public class AiServiceSelfConsistency {
       String output = chatClient.prompt()
           .user(userText)
           .options(ChatOptions.builder()
-              .temperature(1.0)
+              .temperature(1.0) 
+              // content 내용을 분석해서 [IMPORTANT, NOT_IMPORTANT] 중 하나만 나오게하기 위해서 1.0으로 설정.
               .build())
           .call()
           .content();

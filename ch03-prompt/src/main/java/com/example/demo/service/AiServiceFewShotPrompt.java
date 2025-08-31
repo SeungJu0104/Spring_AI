@@ -56,6 +56,7 @@ public class AiServiceFewShotPrompt {
         }
 
         고객 주문: %s""".formatted(order);
+    // 프롬프트 템플릿은 {} 를 하나의 객체로 인식하므로, 여기서는 여러개 중 하나를 응답해야하니 프롬프트 템플릿을 사용하지 않았다.
 
     Prompt prompt = Prompt.builder()
         .content(strPrompt)
