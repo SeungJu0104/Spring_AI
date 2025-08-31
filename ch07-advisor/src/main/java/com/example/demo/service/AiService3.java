@@ -28,10 +28,10 @@ public class AiService3 {
   // ##### 메소드 #####
   public String advisorLogging(String question) {
     String response = chatClient.prompt()
-        .advisors(advisorSpec -> advisorSpec.param("maxCharLength", 100))
+        .advisors(advisorSpec -> advisorSpec.param(MaxCharLengthAdvisor.MAX_CHAR_LENGH, 100))
         .user(question)
         .call()
         .content();
-    return response;
+    return response; // 로그 출력
   } 
 }
