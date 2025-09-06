@@ -53,6 +53,12 @@ public class FaceService {
   public record FaceEmbedApiResponse(float[] vector) {
   }  
   
+//  @Data
+//  public class FaceEmbedApiResponse {
+//	  private float[] vector;
+//  }  
+  // Spring AI 문서에는 Record 타입 사용하도록 되어있으나 lombok 이용해서 사용하는 것도 가능하다.
+  
   public void addFace(String personName, MultipartFile mf) throws IOException {  
       // 얼굴 임베딩
       float[] vector = getFaceVector(mf);
